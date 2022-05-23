@@ -40,6 +40,6 @@ app.use((err, req, res, next) => {
   res.status(400).json({ err: err });
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
