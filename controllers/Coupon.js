@@ -3,7 +3,6 @@ const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
 
-//Add Coupon
 const addCoupon = async (req, res) => {
   try {
     const newCoupon = new Coupon(req.body);
@@ -14,7 +13,6 @@ const addCoupon = async (req, res) => {
   }
 };
 
-//Add All Coupons
 const addAllCoupon = async (req, res) => {
   try {
     await Coupon.insertMany(req.body);
@@ -28,7 +26,6 @@ const addAllCoupon = async (req, res) => {
   }
 };
 
-// Get All Coupons
 const getAllCoupon = async (req, res) => {
   try {
     const coupons = await Coupon.find({}).sort({ _id: -1 });
@@ -40,7 +37,6 @@ const getAllCoupon = async (req, res) => {
   }
 };
 
-//get Coupon BY ID
 const getCouponById = async (req, res) => {
   try {
     const coupon = await Coupon.findById(req.params.id);
@@ -52,7 +48,6 @@ const getCouponById = async (req, res) => {
   }
 };
 
-//Update Coupon
 const updateCoupon = async (req, res) => {
   try {
     const coupon = await Coupon.findById(req.params.id);
@@ -72,7 +67,6 @@ const updateCoupon = async (req, res) => {
   }
 };
 
-// Delete Coupon
 const deleteCoupon = async (req, res) => {
   Coupon.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {

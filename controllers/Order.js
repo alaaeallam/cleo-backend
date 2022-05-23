@@ -1,6 +1,5 @@
 const Order = require("../models/Order");
 
-// Get All Orders
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find({}).sort({ _id: -1 });
@@ -11,7 +10,7 @@ const getAllOrders = async (req, res) => {
     });
   }
 };
-// Getting Order By User
+
 const getOrderByUser = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.params.id }).sort({ _id: -1 });
@@ -23,7 +22,6 @@ const getOrderByUser = async (req, res) => {
   }
 };
 
-//Getting Order By ID
 const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -35,7 +33,6 @@ const getOrderById = async (req, res) => {
   }
 };
 
-//Updating Orders
 const updateOrder = (req, res) => {
   const newStatus = req.body.status;
   Order.updateOne(
@@ -61,7 +58,6 @@ const updateOrder = (req, res) => {
   );
 };
 
-//Delete Order
 const deleteOrder = (req, res) => {
   Order.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {

@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const { signInToken, tokenForVerify, sendEmail } = require("../config/auth");
 const Admin = require("../models/Admin");
 
-//Admin registeration
 const registerAdmin = async (req, res) => {
   try {
     const isAdded = await Admin.findOne({ email: req.body.email });
@@ -39,7 +38,6 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-//Admin Login
 const loginAdmin = async (req, res) => {
   try {
     const admin = await Admin.findOne({ email: req.body.email });
@@ -65,7 +63,6 @@ const loginAdmin = async (req, res) => {
   }
 };
 
-//Admin Forget Password
 const forgetPassword = async (req, res) => {
   const isAdded = await Admin.findOne({ email: req.body.verifyEmail });
   if (!isAdded) {
@@ -99,7 +96,6 @@ const forgetPassword = async (req, res) => {
   }
 };
 
-//Admin reset Password
 const resetPassword = async (req, res) => {
   const token = req.body.token;
   const { email } = jwt.decode(token);
@@ -122,7 +118,6 @@ const resetPassword = async (req, res) => {
   }
 };
 
-//Adding New Staff
 const addStaff = async (req, res) => {
   try {
     const isAdded = await Admin.find({ email: req.body.data.email });
@@ -152,7 +147,6 @@ const addStaff = async (req, res) => {
   }
 };
 
-//Getting All admin Staff
 const getAllStaff = async (req, res) => {
   try {
     const admins = await Admin.find({}).sort({ _id: -1 });
@@ -161,6 +155,7 @@ const getAllStaff = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
 const getStaffById = async (req, res) => {
   try {
     const admin = await Admin.findById(req.params.id);
@@ -172,7 +167,6 @@ const getStaffById = async (req, res) => {
   }
 };
 
-//Updating Staff Profile
 const updateStaff = async (req, res) => {
   try {
     const admin = await Admin.findById(req.params.id);
@@ -203,7 +197,6 @@ const updateStaff = async (req, res) => {
   }
 };
 
-//Deleting Staff
 const deleteStaff = (req, res) => {
   Admin.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {

@@ -1,11 +1,9 @@
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const User = require("../models/User");
 const { sendEmail, signInToken, tokenForVerify } = require("../config/auth");
 
-// Registration
 const registerUser = async (req, res) => {
   const token = req.params.token;
   const { name, email, password } = jwt.decode(token);
@@ -20,6 +18,7 @@ const registerUser = async (req, res) => {
       message: "Email Already Verified!",
     });
   }
+
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET_FOR_VERIFY, (err, decoded) => {
       if (err) {
@@ -46,7 +45,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-//Login
 const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.registerEmail });
@@ -78,7 +76,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-//Email Verification
 const emailVerification = async (req, res) => {
   const isAdded = await User.findOne({ email: req.body.email });
 
@@ -113,7 +110,6 @@ const emailVerification = async (req, res) => {
   }
 };
 
-//Forget Password
 const forgetPassword = async (req, res) => {
   const isAdded = await User.findOne({ email: req.body.verifyEmail });
   if (!isAdded) {
@@ -146,7 +142,7 @@ const forgetPassword = async (req, res) => {
     sendEmail(body, res, message);
   }
 };
-//Reset Password
+
 const resetPassword = async (req, res) => {
   const token = req.body.token;
   const { email } = jwt.decode(token);
@@ -169,7 +165,6 @@ const resetPassword = async (req, res) => {
   }
 };
 
-//Change Password
 const changePassword = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -198,8 +193,6 @@ const changePassword = async (req, res) => {
     });
   }
 };
-
-// Signup with Provider
 
 const signUpWithProvider = async (req, res) => {
   try {
@@ -239,7 +232,6 @@ const signUpWithProvider = async (req, res) => {
   }
 };
 
-// Get All Users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}).sort({ _id: -1 });
@@ -249,7 +241,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-//Get User By ID
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -260,8 +251,6 @@ const getUserById = async (req, res) => {
     });
   }
 };
-
-// Update User Information
 
 const updateUser = async (req, res) => {
   try {
@@ -291,7 +280,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Delete User
 const deleteUser = (req, res) => {
   User.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {

@@ -1,6 +1,5 @@
 const Category = require("../models/Category");
 
-//Adding Category
 const addCategory = async (req, res) => {
   try {
     const newCategory = new Category(req.body);
@@ -15,7 +14,6 @@ const addCategory = async (req, res) => {
   }
 };
 
-//Adding All Categories
 const addAllCategory = async (req, res) => {
   try {
     await Category.insertMany(req.body);
@@ -29,7 +27,6 @@ const addAllCategory = async (req, res) => {
   }
 };
 
-//Showing Categories
 const getShowingCategory = async (req, res) => {
   try {
     const categories = await Category.find({ status: "Show" }).sort({
@@ -43,8 +40,6 @@ const getShowingCategory = async (req, res) => {
   }
 };
 
-// Getting All Categories
-
 const getAllCategory = async (req, res) => {
   try {
     const categories = await Category.find({}).sort({ _id: -1 });
@@ -56,7 +51,6 @@ const getAllCategory = async (req, res) => {
   }
 };
 
-// Getting Categories By ID
 const getCategoryById = async (req, res) => {
   try {
     const category = await Category.findById(req.params.id);
@@ -68,7 +62,6 @@ const getCategoryById = async (req, res) => {
   }
 };
 
-//Updating Category
 const updateCategory = async (req, res) => {
   try {
     const category = await Category.findById(req.params.id);
@@ -86,7 +79,6 @@ const updateCategory = async (req, res) => {
   }
 };
 
-//Updating Category's Status
 const updateStatus = (req, res) => {
   const newStatus = req.body.status;
 
@@ -111,7 +103,6 @@ const updateStatus = (req, res) => {
   );
 };
 
-//Deleting Category
 const deleteCategory = (req, res) => {
   Category.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {

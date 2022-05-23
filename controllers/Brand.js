@@ -1,6 +1,5 @@
 const Brand = require("../models/Brand");
 
-// Add New Brand
 const addBrand = async (req, res) => {
   try {
     const newBrand = new Brand(req.body);
@@ -14,7 +13,7 @@ const addBrand = async (req, res) => {
     });
   }
 };
-// Add All Brands
+
 const addAllBrand = async (req, res) => {
   try {
     await Brand.insertMany(req.body);
@@ -28,7 +27,6 @@ const addAllBrand = async (req, res) => {
   }
 };
 
-// Show Brand
 const getShowingBrand = async (req, res) => {
   try {
     const brands = await Brand.find({ status: "Show" }).sort({
@@ -42,7 +40,6 @@ const getShowingBrand = async (req, res) => {
   }
 };
 
-// Getting All Brands
 const getAllBrand = async (req, res) => {
   try {
     const brands = await Brand.find({}).sort({ _id: -1 });
@@ -54,7 +51,6 @@ const getAllBrand = async (req, res) => {
   }
 };
 
-// Brand By ID
 const getBrandById = async (req, res) => {
   try {
     const brand = await Brand.findById(req.params.id);
@@ -66,7 +62,6 @@ const getBrandById = async (req, res) => {
   }
 };
 
-// Updating Brand
 const updateBrand = async (req, res) => {
   try {
     const brand = await Brand.findById(req.params.id);
@@ -81,7 +76,6 @@ const updateBrand = async (req, res) => {
   }
 };
 
-// Update Brand Status
 const updateStatus = (req, res) => {
   const newStatus = req.body.status;
 
@@ -106,7 +100,6 @@ const updateStatus = (req, res) => {
   );
 };
 
-// Delete Brand
 const deleteBrand = (req, res) => {
   Brand.deleteOne({ _id: req.params.id }, (err) => {
     if (err) {
