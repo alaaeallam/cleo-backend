@@ -8,61 +8,61 @@ const productSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: false,
+      required: true,
     },
     slug: {
       type: String,
-      required: false,
+      required: true,
     },
     unit: {
       type: String,
-      required: false,
+      required: true,
     },
     sub: {
       type: String,
-      required: false,
+      required: true,
     },
     children: {
       type: String,
-      required: false,
+      required: true,
     },
     image: {
       type: String,
-      required: false,
+      required: true,
     },
     originalPrice: {
       type: Number,
-      required: false,
+      required: true,
     },
     price: {
       type: Number,
-      required: false,
+      required: true,
       default: 0,
     },
     discount: {
       type: Number,
-      required: false,
+      required: true,
       default: 0,
     },
     quantity: {
       type: Number,
-      required: false,
+      required: true,
     },
     sold: {
       type: Number,
-      required: false,
+      required: true,
     },
     description: {
       type: String,
-      required: false,
+      required: true,
     },
     category: {
       type: String,
-      required: false,
+      required: true,
     },
     brand: {
       type: String,
-      required: false,
+      required: true,
     },
     tag: [String],
     flashSale: {
