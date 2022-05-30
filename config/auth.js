@@ -3,31 +3,6 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Admin = require("../models/Admin");
 
-const isAuth = async (req, res, next) => {
-  const { authorization } = req.headers;
-  try {
-    const token = authorization.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).send({
-      message: err.message,
-    });
-  }
-};
-
-const isAdmin = async (req, res, next) => {
-  const admin = await Admin.findOne({ role: "Admin" });
-  if (admin) {
-    next();
-  } else {
-    res.status(401).send({
-      message: "User is not Admin",
-    });
-  }
-};
-
 const signInToken = (user) => {
   return jwt.sign(
     {
@@ -56,6 +31,31 @@ const tokenForVerify = (user) => {
     process.env.JWT_SECRET_FOR_VERIFY,
     { expiresIn: "15m" }
   );
+};
+
+const isAuth = async (req, res, next) => {
+  const { authorization } = req.headers;
+  try {
+    const token = authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(401).send({
+      message: err.message,
+    });
+  }
+};
+
+const isAdmin = async (req, res, next) => {
+  const admin = await Admin.findOne({ role: "Admin" });
+  if (admin) {
+    next();
+  } else {
+    res.status(401).send({
+      message: "User is not Admin",
+    });
+  }
 };
 
 const sendEmail = async (body, res, message) => {
@@ -97,7 +97,7 @@ const sendEmail = async (body, res, message) => {
 module.exports = {
   signInToken,
   tokenForVerify,
-  sendEmail,
-  isAdmin,
   isAuth,
+  isAdmin,
+  sendEmail,
 };

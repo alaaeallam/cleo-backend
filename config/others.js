@@ -1,6 +1,7 @@
 const rateLimit = require("express-rate-limit");
 const Product = require("../models/Product");
 
+//decrease product quantity after a order created
 const handleProductQuantity = (cart) => {
   cart.forEach((p) => {
     Product.updateOne(
@@ -8,6 +9,27 @@ const handleProductQuantity = (cart) => {
       {
         $inc: {
           quantity: -p.quantity,
+        },
+      },
+      (err) => {
+        if (err) {
+          console.log(err.message);
+        } else {
+          console.log("success");
+        }
+      }
+    );
+  });
+};
+
+//product sold after a order created
+const handleProductSold = (cart) => {
+  cart.forEach((p) => {
+    Product.updateOne(
+      { _id: p._id },
+      {
+        $inc: {
+          sold: -p.sold,
         },
       },
       (err) => {
@@ -46,7 +68,8 @@ const passwordVerificationLimit = rateLimit({
 });
 
 module.exports = {
+  handleProductQuantity,
+  handleProductSold,
   emailVerificationLimit,
   passwordVerificationLimit,
-  handleProductQuantity,
 };
