@@ -5,7 +5,7 @@ const {
   registerUser,
   loginUser,
   signUpWithProvider,
-  emailVerification,
+  verifyEmailAddress,
   forgetPassword,
   resetPassword,
   changePassword,
@@ -26,7 +26,7 @@ router.post("/login", loginUser);
 
 router.post("/singup", signUpWithProvider);
 
-router.post("/verify-email", emailVerificationLimit, emailVerification);
+router.post("/verify-email", emailVerificationLimit, verifyEmailAddress);
 
 router.put("/forget-password", passwordVerificationLimit, forgetPassword);
 
